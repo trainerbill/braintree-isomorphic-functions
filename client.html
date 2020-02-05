@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <script src="./lib/paypal-isomorphic-functions.js"></script>
+</head>
+
+<body>
+    <script>
+        localStorage.setItem('PAYPAL_CLIENT_ID', 'AbIItCVNhzInKjb2UCXb1CnUoGFkcT5mhUIFlR6Sijgr0G--C2QdlRmzXNWlfgtTk9MM6igbDNQbjQ3o');
+        localStorage.setItem('PAYPAL_CLIENT_SECRET', 'EDFRZx0ln2YAi14S_edfrcdIgy4tbs1QhM-_lgqeNNXDF3TuLisWvbPvgE_zNy1blbk0VjrEC3iyWNRp');
+        localStorage.setItem('PAYPAL_ENVIRONMENT', 'sandbox');
+
+        let accessToken;
+        let orderId;
+
+        paypalFunctions.Oauth.createAccessToken()
+            .then(token => accessToken = token)
+            .then(token => paypalFunctions.Orders.create(accessToken))
+            .then(res => res.json())
+            .then(data => orderId = data.id)
+            .then(data => paypalFunctions.Orders.update(accessToken, orderId))
+            .then(data => paypalFunctions.Orders.get(accessToken, orderId))
+            .then(res => res.json())
+            .then(data => document.getElementById('result').innerHTML = JSON.stringify(data));    
+    </script>
+    <div id="result"></div>
+
+</body>
+
+</html

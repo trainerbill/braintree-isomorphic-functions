@@ -1,0 +1,32 @@
+{
+  "name": "braintree-isomorphic-functions",
+  "version": "1.0.0",
+  "description": "Library of helpful braintree functions that can be run in a browser or server",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && tsc && webpack",
+    "format": "prettier --write \"src/**/*.{json,ts,yml,md}\"",
+    "release:quick": "npm run format && npm run build && git add -A && git commit -m 'Quick Release' && git push && npm version patch && npm publish"
+  },
+  "author": "Andrew Throener",
+  "homepage": "https://github.com/trainerbill/braintree-isomorphic-functions",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/browser-or-node": "^1.2.0",
+    "@types/btoa": "^1.2.3",
+    "@types/express": "^4.17.2",
+    "@types/node": "^13.1.7",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "browser-or-node": "^1.2.1",
+    "btoa": "^1.2.1",
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^2.2.1",
+    "prettier": "^1.19.1"
+  }
+}

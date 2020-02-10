@@ -3,6 +3,9 @@ Library of useful Braintree functions that can be run in browser or server built
 
 ### Browser Configuration
 ```
+<script src="https://unpkg.com/braintree-isomorphic-functions@1.0.0/lib/braintree-isomorphic-functions.js"></script>
+```
+```
 localStorage.setItem('BRAINTREE_PUBLIC_KEY', '');
 localStorage.setItem('BRAINTREE_PRIVATE_KEY', '');
 localStorage.setItem('BRAINTREE_ENVIRONMENT', 'sandbox');

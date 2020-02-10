@@ -1,33 +1,63 @@
 import { CONFIG } from "../config";
+import { request } from "../util";
 
-export async function chargePaymentMethod(headers?: any) {
-  const payload = {
-    query: `mutation ExampleCharge($input: ChargePaymentMethodInput!) {
+export async function chargePaymentMethod(
+    paymentMethodId: string,
+    transaction: any,
+    headers?: any
+) {
+    const payload = {
+        query: `mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
           chargePaymentMethod(input: $input) {
             transaction {
               id
               status
+              statusHistory {
+                ... on GatewayRejectedEvent {
+                  gatewayRejectionReason
+                }
+              }
             }
           }
         }`,
-    variables: {
-      input: {
-        paymentMethodId: "88p4vm",
-        transaction: {
-          amount: "11.23"
+        variables: {
+            input: {
+                paymentMethodId,
+                transaction,
+            }
         }
-      }
-    }
-  };
+    };
 
-  const options = {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${CONFIG.get("BRAINTREE_SECURE_KEY")}`,
-      "Content-Type": "application/json",
-      ...headers
-    },
-    body: JSON.stringify(payload)
-  };
-  return await fetch(`${CONFIG.get("BRAINTREE_HOSTNAME")}`, options);
+    return await request(payload);
+}
+
+export async function vaultPaymentMethod(
+    paymentMethodId: string,
+    customerId?: string,
+    headers?: any
+) {
+    const payload = {
+        query: `mutation vaultPaymentMethod($input: VaultPaymentMethodInput!) {
+          vaultPaymentMethod(input: $input) {
+            paymentMethod {
+                id
+                usage
+                details {
+                    __typename
+                }
+            }
+            verification {
+                status
+            }
+        }
+    }`,
+        variables: {
+            input: {
+                paymentMethodId,
+                customerId,
+            }
+        }
+    };
+
+    return await request(payload);
 }

@@ -3,6 +3,8 @@ import { isNode, isBrowser } from "browser-or-node";
 
 export const CONFIG = new Map();
 
+CONFIG.set("BRAINTREE_API_VERSION", "2019-01-01");
+
 // Server Config
 if (isNode) {
   CONFIG.set("BRAINTREE_PUBLIC_KEY", process.env.BRAINTREE_PUBLIC_KEY);
@@ -56,3 +58,15 @@ CONFIG.set(
     ? "https://payments.braintree-api.com/graphql"
     : "https://payments.sandbox.braintree-api.com/graphql"
 );
+
+CONFIG.set("BRAINTREE_SECURE_HEADERS", {
+  Authorization: `Basic ${CONFIG.get("BRAINTREE_SECURE_KEY")}`,
+  "Content-Type": "application/json",
+  "Braintree-Version": CONFIG.get("BRAINTREE_API_VERSION")
+});
+
+CONFIG.set("BRAINTREE_PUBLIC_HEADERS", {
+  Authorization: `Basic ${CONFIG.get("BRAINTREE_TOKENIZATION_KEY")}`,
+  "Content-Type": "application/json",
+  "Braintree-Version": CONFIG.get("BRAINTREE_API_VERSION")
+});

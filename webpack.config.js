@@ -9,9 +9,9 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: 'paypal-isomorphic-functions.js',
+        filename: 'braintree-isomorphic-functions.js',
         path: path.resolve(__dirname, 'lib'),
-        library: 'paypalFunctions',
+        library: 'braintreeFunctions',
         libraryTarget: 'umd'
     },
 };

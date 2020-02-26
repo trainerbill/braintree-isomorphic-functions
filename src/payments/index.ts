@@ -1,4 +1,3 @@
-import { CONFIG } from "../config";
 import { request } from "../util";
 
 export async function chargePaymentMethod(
@@ -28,7 +27,7 @@ export async function chargePaymentMethod(
         }
     };
 
-    return await request(payload);
+    return await request(payload, headers);
 }
 
 export async function vaultPaymentMethod(
@@ -41,6 +40,7 @@ export async function vaultPaymentMethod(
           vaultPaymentMethod(input: $input) {
             paymentMethod {
                 id
+                legacyId
                 usage
                 details {
                     __typename
@@ -59,5 +59,5 @@ export async function vaultPaymentMethod(
         }
     };
 
-    return await request(payload);
+    return await request(payload, headers);
 }

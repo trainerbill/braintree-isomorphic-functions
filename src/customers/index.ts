@@ -1,11 +1,8 @@
 import { request } from "../util";
 
-export async function create(
-    data: any,
-    headers?: any
-) {
-    const payload = {
-        query: `mutation createCustomer($input: CreateCustomerInput!) {
+export async function create(data: any, headers?: any) {
+  const payload = {
+    query: `mutation createCustomer($input: CreateCustomerInput!) {
             createCustomer(input: $input) {
             customer {
                 id
@@ -13,14 +10,14 @@ export async function create(
             }
         }
     }`,
-        variables: {
-            input: {
-                customer: {
-                    ...data
-                }
-            }
+    variables: {
+      input: {
+        customer: {
+          ...data
         }
-    };
+      }
+    }
+  };
 
-    return await request(payload);
+  return await request(payload);
 }

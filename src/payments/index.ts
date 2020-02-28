@@ -1,15 +1,16 @@
 import { request } from "../util";
 
 export async function chargePaymentMethod(
-  paymentMethodId: string,
-  transaction: any,
-  headers?: any
+    paymentMethodId: string,
+    transaction: any,
+    headers?: any
 ) {
-  const payload = {
-    query: `mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
+    const payload = {
+        query: `mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
           chargePaymentMethod(input: $input) {
             transaction {
               id
+              legacyId
               status
               statusHistory {
                 ... on GatewayRejectedEvent {
@@ -19,24 +20,24 @@ export async function chargePaymentMethod(
             }
           }
         }`,
-    variables: {
-      input: {
-        paymentMethodId,
-        transaction
-      }
-    }
-  };
+        variables: {
+            input: {
+                paymentMethodId,
+                transaction
+            }
+        }
+    };
 
-  return await request(payload, headers);
+    return await request(payload, headers);
 }
 
 export async function vaultPaymentMethod(
-  paymentMethodId: string,
-  customerId?: string,
-  headers?: any
+    paymentMethodId: string,
+    customerId?: string,
+    headers?: any
 ) {
-  const payload = {
-    query: `mutation vaultPaymentMethod($input: VaultPaymentMethodInput!) {
+    const payload = {
+        query: `mutation vaultPaymentMethod($input: VaultPaymentMethodInput!) {
           vaultPaymentMethod(input: $input) {
             paymentMethod {
                 id
@@ -51,13 +52,13 @@ export async function vaultPaymentMethod(
             }
         }
     }`,
-    variables: {
-      input: {
-        paymentMethodId,
-        customerId
-      }
-    }
-  };
+        variables: {
+            input: {
+                paymentMethodId,
+                customerId
+            }
+        }
+    };
 
-  return await request(payload, headers);
+    return await request(payload, headers);
 }

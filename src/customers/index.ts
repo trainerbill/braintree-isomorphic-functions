@@ -7,6 +7,7 @@ export async function create(data: any, headers?: any) {
             customer {
                 id
                 legacyId
+                customFields
             }
         }
     }`,
@@ -15,6 +16,38 @@ export async function create(data: any, headers?: any) {
         customer: {
           ...data
         }
+      }
+    }
+  };
+
+  return await request(payload);
+}
+
+export async function search(data: any, headers?: any) {
+  const payload = {
+    query: `query Search($input: CustomerSearchInput!) {
+      search {
+        customers(input: $input) {
+          pageInfo {
+            hasNextPage
+            startCursor
+            endCursor
+          },
+          edges {
+            node {
+              id
+              firstName
+              lastName
+              email
+              legacyId
+            }
+          }
+        }
+      }
+    }`,
+    variables: {
+      input: {
+        ...data
       }
     }
   };

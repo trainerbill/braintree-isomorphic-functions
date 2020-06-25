@@ -7,7 +7,6 @@ export async function create(data: any, headers?: any) {
             customer {
                 id
                 legacyId
-                customFields
             }
         }
     }`,

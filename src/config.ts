@@ -3,7 +3,7 @@ import { isNode, isBrowser } from "browser-or-node";
 
 export const CONFIG = new Map();
 
-CONFIG.set("BRAINTREE_API_VERSION", "2019-01-01");
+CONFIG.set("BRAINTREE_API_VERSION", "2020-05-06");
 
 // Server Config
 if (isNode) {

@@ -16,5 +16,5 @@ export async function create(data: any, headers?: any) {
     }
   };
 
-  return await request(payload);
+  return await request(payload, headers);
 }

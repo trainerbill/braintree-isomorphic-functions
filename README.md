@@ -24,4 +24,5 @@ braintreeFunctions.Customers.create({ firstName: 'Fred', lastName: 'Flintstone' 
     .then(res => res.json())
     .then(data => document.getElementById('result').innerHTML = JSON.stringify(data))
     .catch(err => console.log(err));
+    
 ```

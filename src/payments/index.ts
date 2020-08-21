@@ -110,7 +110,7 @@ export async function captureTransaction(
   const payload = {
     query: `mutation captureTransaction($input: CaptureTransactionInput!) {
           captureTransaction(input: $input) {
-            capture {
+            transaction {
                 id
                 legacyId
                 status

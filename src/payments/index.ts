@@ -161,3 +161,33 @@ export async function partialCaptureTransaction(
 
   return await request(payload, headers);
 }
+
+export async function refundTransaction(
+  transactionId: string,
+  refund: any,
+  headers?: any
+) {
+  const payload = {
+    query: `mutation refundTransaction($input: RefundTransactionInput!) {
+      refundTransaction(input: $input) {
+            refund {
+                id
+                legacyId
+                status
+                amount {
+                  value
+                  currencyIsoCode
+                }
+            }
+        }
+    }`,
+    variables: {
+      input: {
+        transactionId,
+        refund
+      }
+    }
+  };
+
+  return await request(payload, headers);
+}

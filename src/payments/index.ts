@@ -1,4 +1,6 @@
 import { request } from "../util";
+import { buildSchema } from "graphql";
+import { ICallOptions } from "../interfaces";
 
 export async function authorizePaymentMethod(
   paymentMethodId: string,
@@ -38,27 +40,31 @@ export async function authorizePaymentMethod(
 export async function chargePaymentMethod(
   paymentMethodId: string,
   transaction: any,
+  schema: string,
   headers?: any
 ) {
-  const payload = {
-    query: `mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
-          chargePaymentMethod(input: $input) {
-            transaction {
-              id
-              amount {
-                value
-                currencyIsoCode
-              }
-              legacyId
-              status
-              statusHistory {
-                ... on GatewayRejectedEvent {
-                  gatewayRejectionReason
-                }
-              }
-            }
+  const query =
+    schema ||
+    `mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
+    chargePaymentMethod(input: $input) {
+      transaction {
+        id
+        amount {
+          value
+          currencyIsoCode
+        }
+        legacyId
+        status
+        statusHistory {
+          ... on GatewayRejectedEvent {
+            gatewayRejectionReason
           }
-        }`,
+        }
+      }
+    }
+  }`;
+  const payload = {
+    query: query,
     variables: {
       input: {
         paymentMethodId,
@@ -190,4 +196,46 @@ export async function refundTransaction(
   };
 
   return await request(payload, headers);
+}
+
+export async function chargePayPalAccount(options: ICallOptions) {
+  const response =
+    options.response ||
+    `
+    billingAgreementWithPurchasePaymentMethod {
+      id
+      legacyId
+    }
+    transaction {
+        id
+        amount {
+          value
+          currencyIsoCode
+        }
+        legacyId
+        status
+        statusHistory {
+          ... on GatewayRejectedEvent {
+            gatewayRejectionReason
+          }
+        }
+      }`;
+
+  const query = `mutation chargePayPalAccount($input: ChargePayPalAccountInput!) {
+    chargePayPalAccount(input: $input) {
+          ${response}
+      }
+  }`;
+
+  const payload = {
+    query,
+    variables: {
+      input: {
+        paymentMethodId: options.id,
+        transaction: options.data
+      }
+    }
+  };
+
+  return await request(payload, options.headers);
 }

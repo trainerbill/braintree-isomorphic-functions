@@ -205,6 +205,14 @@ export async function chargePayPalAccount(options: ICallOptions) {
     billingAgreementWithPurchasePaymentMethod {
       id
       legacyId
+      customer {
+        id
+      }
+      details {
+        ... on PayPalAccountDetails {
+          email
+        }
+      }
     }
     transaction {
         id

@@ -17,4 +17,10 @@ async function authCapRefund() {
 
 }
 
-authCapRefund();
+async function vaultPaymentMethod() {
+    const response = await Payments.vaultPaymentMethod('fake-valid-nonce');
+    const res = await response.json();
+    console.log(JSON.stringify(res));
+}
+
+vaultPaymentMethod();

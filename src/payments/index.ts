@@ -91,6 +91,10 @@ export async function vaultPaymentMethod(
                 details {
                     __typename
                 }
+                customer {
+                  id
+                  legacyId
+                }
             }
             verification {
                 status

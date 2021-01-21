@@ -12,6 +12,14 @@ localStorage.setItem('BRAINTREE_ENVIRONMENT', 'sandbox');
 localStorage.setItem('BRAINTREE_TOKENIZATION_KEY', '');
 ```
 
+### Server Configuration
+Create a root .env file
+BRAINTREE_PUBLIC_KEY=
+BRAINTREE_PRIVATE_KEY=
+BRAINTREE_ENVIRONMENT=sandbox
+
+```
+
 ## Examples
 
 ### Create Customer, Vault Payment Method to Customer, Charge Method.

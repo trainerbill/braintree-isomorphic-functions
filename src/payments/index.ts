@@ -88,7 +88,7 @@ export async function vaultPaymentMethod(
                 id
                 legacyId
                 usage
-                details {npm 
+                details {
                     __typename
                 }
                 customer {

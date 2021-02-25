@@ -1,7 +1,7 @@
 # braintree-isomorphic-functions
 Library of useful Braintree functions that can be run in browser or server built on the GraphQL Apis.
 
-### Browser Configuration 
+### Browser Configuration  
 ```
 <script src="https://unpkg.com/braintree-isomorphic-functions@1.0.0/lib/braintree-isomorphic-functions.js"></script>
 ```

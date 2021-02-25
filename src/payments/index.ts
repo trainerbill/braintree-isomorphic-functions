@@ -1,5 +1,4 @@
 import { request } from "../util";
-import { buildSchema } from "graphql";
 import { ICallOptions } from "../interfaces";
 
 export async function authorizePaymentMethod(
@@ -235,6 +234,44 @@ export async function chargePayPalAccount(options: ICallOptions) {
 
   const query = `mutation chargePayPalAccount($input: ChargePayPalAccountInput!) {
     chargePayPalAccount(input: $input) {
+          ${response}
+      }
+  }`;
+
+  const payload = {
+    query,
+    variables: {
+      input: {
+        paymentMethodId: options.id,
+        transaction: options.data
+      }
+    }
+  };
+
+  return await request(payload, options.headers);
+}
+
+export async function chargeVenmoAccount(options: ICallOptions) {
+  const response =
+    options.response ||
+    `
+    transaction {
+        id
+        amount {
+          value
+          currencyIsoCode
+        }
+        legacyId
+        status
+        statusHistory {
+          ... on GatewayRejectedEvent {
+            gatewayRejectionReason
+          }
+        }
+      }`;
+
+  const query = `mutation chargeVenmoAccount($input: ChargeVenmoAccountInput!) {
+    chargeVenmoAccount(input: $input) {
           ${response}
       }
   }`;

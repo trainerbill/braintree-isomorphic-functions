@@ -288,3 +288,41 @@ export async function chargeVenmoAccount(options: ICallOptions) {
 
   return await request(payload, options.headers);
 }
+
+export async function chargeCreditCard(options: ICallOptions) {
+  const response =
+    options.response ||
+    `
+    transaction {
+        id
+        amount {
+          value
+          currencyIsoCode
+        }
+        legacyId
+        status
+        statusHistory {
+          ... on GatewayRejectedEvent {
+            gatewayRejectionReason
+          }
+        }
+      }`;
+
+  const query = `mutation chargeCreditCard($input: ChargeCreditCardInput!) {
+    chargeCreditCard(input: $input) {
+          ${response}
+      }
+  }`;
+
+  const payload = {
+    query,
+    variables: {
+      input: {
+        paymentMethodId: options.id,
+        transaction: options.data
+      }
+    }
+  };
+
+  return await request(payload, options.headers);
+}

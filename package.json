@@ -1,6 +1,6 @@
 {
   "name": "braintree-isomorphic-functions",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Library of helpful braintree functions that can be run in a browser or server",
   "main": "./dist/index.js",
   "scripts": {

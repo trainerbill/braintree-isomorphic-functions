@@ -26,6 +26,10 @@ export async function authorizePaymentMethod(
             id
             legacyId
           }
+          customer {
+            id
+            legacyId
+          }
         }
       }
     }`,
@@ -64,6 +68,10 @@ export async function chargePaymentMethod(
           }
         }
         paymentMethod {
+          id
+          legacyId
+        }
+        customer {
           id
           legacyId
         }
@@ -242,6 +250,10 @@ export async function chargePayPalAccount(options: ICallOptions) {
           id
           legacyId
         }
+        customer {
+          id
+          legacyId
+        }
       }`;
 
   const query = `mutation chargePayPalAccount($input: ChargePayPalAccountInput!) {
@@ -284,6 +296,10 @@ export async function chargeVenmoAccount(options: ICallOptions) {
           id
           legacyId
         }
+        customer {
+          id
+          legacyId
+        }
       }`;
 
   const query = `mutation chargeVenmoAccount($input: ChargeVenmoAccountInput!) {
@@ -323,6 +339,10 @@ export async function chargeCreditCard(options: ICallOptions) {
           }
         }
         paymentMethod {
+          id
+          legacyId
+        }
+        customer {
           id
           legacyId
         }

@@ -22,6 +22,10 @@ export async function authorizePaymentMethod(
               gatewayRejectionReason
             }
           }
+          paymentMethod {
+            id
+            legacyId
+          }
         }
       }
     }`,
@@ -58,6 +62,10 @@ export async function chargePaymentMethod(
           ... on GatewayRejectedEvent {
             gatewayRejectionReason
           }
+        }
+        paymentMethod {
+          id
+          legacyId
         }
       }
     }
@@ -230,6 +238,10 @@ export async function chargePayPalAccount(options: ICallOptions) {
             gatewayRejectionReason
           }
         }
+        paymentMethod {
+          id
+          legacyId
+        }
       }`;
 
   const query = `mutation chargePayPalAccount($input: ChargePayPalAccountInput!) {
@@ -268,6 +280,10 @@ export async function chargeVenmoAccount(options: ICallOptions) {
             gatewayRejectionReason
           }
         }
+        paymentMethod {
+          id
+          legacyId
+        }
       }`;
 
   const query = `mutation chargeVenmoAccount($input: ChargeVenmoAccountInput!) {
@@ -305,6 +321,10 @@ export async function chargeCreditCard(options: ICallOptions) {
           ... on GatewayRejectedEvent {
             gatewayRejectionReason
           }
+        }
+        paymentMethod {
+          id
+          legacyId
         }
       }`;
 

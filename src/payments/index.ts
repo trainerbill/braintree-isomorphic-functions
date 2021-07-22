@@ -44,51 +44,49 @@ export async function authorizePaymentMethod(
   return await request(payload, headers);
 }
 
-export async function chargePaymentMethod(
-  paymentMethodId: string,
-  transaction: any,
-  schema: string,
-  headers?: any
-) {
-  const query =
-    schema ||
-    `mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
-    chargePaymentMethod(input: $input) {
-      transaction {
-        id
-        amount {
-          value
-          currencyIsoCode
-        }
-        legacyId
-        status
-        statusHistory {
-          ... on GatewayRejectedEvent {
-            gatewayRejectionReason
-          }
-        }
-        paymentMethod {
-          id
-          legacyId
-        }
-        customer {
-          id
-          legacyId
+export async function chargePaymentMethod(options: ICallOptions) {
+  const response =
+    options.response ||
+    `
+    transaction {
+      id
+      amount {
+        value
+        currencyIsoCode
+      }
+      legacyId
+      status
+      statusHistory {
+        ... on GatewayRejectedEvent {
+          gatewayRejectionReason
         }
       }
+      paymentMethod {
+        id
+        legacyId
+      }
+      customer {
+        id
+        legacyId
+      }
+    }
+    `;
+  const query = `mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
+    chargePaymentMethod(input: $input) {
+      ${response}
     }
   }`;
   const payload = {
     query: query,
     variables: {
       input: {
-        paymentMethodId,
-        transaction
+        paymentMethodId: options.id,
+        transaction: options.data
       }
     }
   };
 
-  return await request(payload, headers);
+  return await request(payload, options.headers);
 }
 
 export async function vaultPaymentMethod(

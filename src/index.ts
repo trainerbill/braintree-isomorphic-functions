@@ -3,6 +3,7 @@ import * as Payments from "./payments";
 import * as Customers from "./customers";
 import * as ClientToken from "./clientToken";
 import * as CustomActions from "./customActions";
+import * as Vault from "./vault";
 import { request } from "./util";
 
 export async function Batch(payload: any) {
@@ -11,4 +12,4 @@ export async function Batch(payload: any) {
   });
 }
 
-export { Payments, Customers, ClientToken, CustomActions };
+export { Payments, Customers, ClientToken, CustomActions, Vault };

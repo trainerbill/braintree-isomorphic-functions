@@ -89,42 +89,6 @@ export async function chargePaymentMethod(options: ICallOptions) {
   return await request(payload, options.headers);
 }
 
-export async function vaultPaymentMethod(
-  paymentMethodId: string,
-  customerId?: string,
-  headers?: any
-) {
-  const payload = {
-    query: `mutation vaultPaymentMethod($input: VaultPaymentMethodInput!) {
-          vaultPaymentMethod(input: $input) {
-            paymentMethod {
-                id
-                legacyId
-                usage
-                details {
-                    __typename
-                }
-                customer {
-                  id
-                  legacyId
-                }
-            }
-            verification {
-                status
-            }
-        }
-    }`,
-    variables: {
-      input: {
-        paymentMethodId,
-        customerId
-      }
-    }
-  };
-
-  return await request(payload, headers);
-}
-
 export async function captureTransaction(
   transactionId: string,
   transaction: any,

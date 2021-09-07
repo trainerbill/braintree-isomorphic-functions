@@ -1,6 +1,6 @@
 export interface ICallOptions {
-  id: string;
-  data: any;
+  id?: string;
+  data?: any;
   response?: string;
   headers?: any;
 }

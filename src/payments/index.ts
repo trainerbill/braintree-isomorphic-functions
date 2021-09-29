@@ -329,7 +329,7 @@ export async function chargeCreditCard(options: ICallOptions) {
   return await request(payload, options.headers);
 }
 
-export async function ceateTransactionRiskContext(options: ICallOptions) {
+export async function createTransactionRiskContext(options: ICallOptions) {
   const query = `mutation CreateTransactionRiskContext($input: CreateTransactionRiskContextInput!) {
     createTransactionRiskContext(input: $input) {
       clientMetadataId
